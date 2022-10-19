@@ -7,4 +7,4 @@ export const userLogin = (email) => ({
   email,
 });
 
-export const tomanocu = () => ({ email });
+export const testando = () => ({ email });
