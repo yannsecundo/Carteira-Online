@@ -112,8 +112,16 @@ WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
+const mapDispatchToProps = (dispatch) => ({
+  getCurrency: () => dispatch(actionGetCurrency()),
+  addExpense: (expense) => dispatch(actionAddExpense(expense)),
+  updateExpenses: (expenses) => dispatch(actionUpdateExpense(expenses)),
 });
 
-export default connect(mapStateToProps)(WalletForm);
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  editor: state.wallet.editor,
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
