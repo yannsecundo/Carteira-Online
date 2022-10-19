@@ -10,6 +10,10 @@ import {
 
 const INITIAL_STATE = {
   currencies: [],
+  expenses: [],
+  numberExpenses: 0,
+  editor: false,
+  idToEdit: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -45,6 +49,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       editor: false,
       idToEdit: null,
     };
+
   case ID_TO_EDIT:
     return { ...state, idToEdit: action.id, editor: true };
 
