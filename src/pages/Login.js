@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import userLogin from '../redux/actions/index';
+import { userLogin } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -32,12 +32,12 @@ class Login extends React.Component {
     this.setState({ [name]: value }, () => this.validadeDoValidade());
   };
 
-  login = () => {
+  login = (event) => {
+    event.preventDefault();
     const { addEmail, history } = this.props;
     const { email } = this.state;
-
-    addEmail(email);
     history.push('/carteira');
+    addEmail(email);
   };
 
   render() {
@@ -84,4 +84,5 @@ Login.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   addEmail: (email) => dispatch(userLogin(email)),
 });
+
 export default connect(null, mapDispatchToProps)(Login);

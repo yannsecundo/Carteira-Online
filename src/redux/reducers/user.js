@@ -1,8 +1,8 @@
-import USER_LOGIN from '../actions/namesOfActions';
+import { USER_LOGIN } from '../actions/namesOfActions';
 
 const INITIAL_STATE = { email: 'user' };
 
-const reducer = (state = INITIAL_STATE, action) => {
+export const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case USER_LOGIN:
     return { ...state, email: action.email };
@@ -12,4 +12,4 @@ const reducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default reducer;
+export const agoraVai = () => { };

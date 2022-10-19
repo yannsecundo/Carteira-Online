@@ -1,3 +1,2 @@
-const USER_LOGIN = 'USER_LOGIN';
-
-export default USER_LOGIN;
+export const USER_LOGIN = 'USER_LOGIN';
+export const TESTANDOOOO = 'TESTANDOOOO';
