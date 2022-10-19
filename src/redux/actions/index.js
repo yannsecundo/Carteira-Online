@@ -36,4 +36,7 @@ export const updateExpense = (expenses) => ({
   expenses,
 });
 
-export const testando = () => ({ email });
+export const setIdToEdit = (id) => ({
+  type: ID_TO_EDIT,
+  id,
+});

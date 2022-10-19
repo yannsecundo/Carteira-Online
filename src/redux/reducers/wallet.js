@@ -4,6 +4,7 @@ import {
   ADD_EXPENSE,
   DELETE_EXPENSE,
   GET_CURRENCY,
+  ID_TO_EDIT,
   UPDATE_EXPENSE,
 } from '../actions/namesOfActions';
 
@@ -44,6 +45,9 @@ const reducer = (state = INITIAL_STATE, action) => {
       editor: false,
       idToEdit: null,
     };
+  case ID_TO_EDIT:
+    return { ...state, idToEdit: action.id, editor: true };
+
   default:
     return state;
   }

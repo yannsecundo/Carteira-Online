@@ -10,15 +10,44 @@ class WalletForm extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      expensestag: 'Alimentação',
+      tag: 'Alimentação',
     };
   }
 
+  componentDidMount() {
+    const { getCurrency } = this.props;
+    getCurrency();
+  }
+
+  handleClick = () => {
+    const { addExpense } = this.props;
+    addExpense(this.state);
+    this.setState(this.initialState);
+  };
+
+  editClick = () => {
+    const { expenses, updateExpenses, idToEdit } = this.props;
+    const indexEdit = expenses.map((expense) => expense.id).indexOf(idToEdit);
+    expenses[indexEdit] = {
+      id: expenses[indexEdit].id,
+      ...this.state,
+      exchangeRates: expenses[indexEdit].exchangeRates,
+    };
+    updateExpenses(expenses);
+  };
+
+  inputChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
   render() {
-    const { value, description, currency, method, expensestag } = this.state;
-    const { currencies } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    const { currencies, editor } = this.props;
     const methodPayment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const expensesList = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    const tagList = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form>
         <label htmlFor="value">
@@ -28,7 +57,7 @@ class WalletForm extends Component {
             id="value"
             name="value"
             value={ value }
-            onChange={ () => {} }
+            onChange={ this.inputChange }
             data-testid="value-input"
           />
         </label>
@@ -39,7 +68,7 @@ class WalletForm extends Component {
             id="description"
             name="description"
             value={ description }
-            onChange={ () => {} }
+            onChange={ this.inputChange }
             data-testid="description-input"
           />
         </label>
@@ -49,7 +78,7 @@ class WalletForm extends Component {
             name="currency"
             id="currency"
             value={ currency }
-            onChange={ () => {} }
+            onChange={ this.inputChange }
             data-testid="currency-input"
           >
             {currencies.map((curr) => (
@@ -65,7 +94,7 @@ class WalletForm extends Component {
             name="method"
             id="method"
             value={ method }
-            onChange={ () => {} }
+            onChange={ this.inputChange }
             data-testid="method-input"
           >
             {methodPayment.map((methods) => (
@@ -80,11 +109,11 @@ class WalletForm extends Component {
           <select
             name="tag"
             id="tag"
-            value={ expensestag }
-            onChange={ () => {} }
+            value={ tag }
+            onChange={ this.inputChange }
             data-testid="tag-input"
           >
-            {expensesList.map((tags) => (
+            {tagList.map((tags) => (
               <option value={ tags } key={ tags }>
                 {tags}
               </option>
@@ -94,12 +123,12 @@ class WalletForm extends Component {
         {editor ? (
           <button
             type="button"
-            onClick={ () => {} }
+            onClick={ this.editClick }
           >
             Editar despesa
           </button>
         ) : (
-          <button type="button" onClick={ () => {} }>
+          <button type="button" onClick={ this.handleClick }>
             Adicionar despesa
           </button>
         )}
@@ -110,6 +139,19 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  editor: PropTypes.bool.isRequired,
+  getCurrency: PropTypes.func.isRequired,
+  updateExpenses: PropTypes.func.isRequired,
+  addExpense: PropTypes.func.isRequired,
+  idToEdit: PropTypes.number,
+  // eslint-disable-next-line react/forbid-prop-types
+  expenses: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+};
+
+WalletForm.defaultProps = {
+  idToEdit: null,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -122,6 +164,7 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   editor: state.wallet.editor,
   expenses: state.wallet.expenses,
+  idToEdit: state.wallet.idToEdit,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
