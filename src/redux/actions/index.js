@@ -1,7 +1,9 @@
 // Coloque aqui suas actions
-import USER_LOGIN from './namesOfActions';
+import { USER_LOGIN } from './namesOfActions';
 
-export default userLogin = (email) => ({
+const userLogin = (email) => ({
   type: USER_LOGIN,
   email,
 });
+
+export default userLogin();

@@ -1,8 +1,16 @@
 import React from 'react';
-import Routes from './Rotas/rotas';
+import { Route, Switch } from 'react-router-dom';
+import Login from './pages/Login';
+import Wallet from './pages/Wallet';
+import './App.css';
 
 function App() {
-  return <Routes />;
+  return (
+    <Switch>
+      <Route path="/" component={ Login } />
+      <Route path="/carteira" component={ Wallet } />
+    </Switch>
+  );
 }
 
 export default App;
