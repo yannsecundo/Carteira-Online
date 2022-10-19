@@ -7,41 +7,29 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: false,
-      password: false,
+      email: '',
+      password: '',
       isButtonDisabled: true,
     };
   }
 
-  validateEmail = () => {
-    const aEmail = /^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/;
-    const { email } = this.state;
-
-    if (email.match(aEmail)) {
-      return true;
-    }
-  };
-
-  validatePassword = () => {
-    const { password } = this.state;
-    const passwordLength = 6;
-    if (password.length >= passwordLength) {
-      return true;
+  validadeDoValidade = () => {
+    const { email, password } = this.state;
+    const number = 6;
+    if (password.length >= number && email.includes('@') && email.includes('.com')) {
+      this.setState({
+        isButtonDisabled: false,
+      });
+    } else {
+      this.setState({
+        isButtonDisabled: true,
+      });
     }
   };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState(
-      {
-        [name]: value,
-      },
-      () => {
-        this.setState({
-          isButtonDisabled: !(this.validateEmail() && this.validatePassword()),
-        });
-      },
-    );
+    this.setState({ [name]: value }, () => this.validadeDoValidade());
   };
 
   login = () => {
