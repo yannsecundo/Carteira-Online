@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {
+  aAddExpense,
+  aGetCurrency,
+  aUpdateExpense,
+} from '../redux/actions';
 
 class WalletForm extends Component {
   constructor() {
     super();
-    this.state = {
+    this.initialState = {
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
+    this.state = this.initialState;
   }
 
   componentDidMount() {
@@ -144,10 +150,7 @@ WalletForm.propTypes = {
   updateExpenses: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
   idToEdit: PropTypes.number,
-  // eslint-disable-next-line react/forbid-prop-types
-  expenses: PropTypes.arrayOf(
-    PropTypes.object,
-  ).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
 };
 
 WalletForm.defaultProps = {
@@ -155,9 +158,9 @@ WalletForm.defaultProps = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrency: () => dispatch(actionGetCurrency()),
-  addExpense: (expense) => dispatch(actionAddExpense(expense)),
-  updateExpenses: (expenses) => dispatch(actionUpdateExpense(expenses)),
+  getCurrency: () => dispatch(aGetCurrency()),
+  addExpense: (expense) => dispatch(aAddExpense(expense)),
+  updateExpenses: (expenses) => dispatch(aUpdateExpense(expenses)),
 });
 
 const mapStateToProps = (state) => ({

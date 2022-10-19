@@ -14,24 +14,24 @@ export const userLogin = (email) => ({
   email,
 });
 
-export const getCurrency = () => async (dispatch) => {
+export const aGetCurrency = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const data = await response.json();
   const currency = Object.keys(data).filter((curr) => curr !== 'USDT');
   dispatch({ type: GET_CURRENCY, currency });
 };
-export const addExpense = (expense) => async (dispatch) => {
+export const aAddExpense = (expense) => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const data = await response.json();
   dispatch({ type: ADD_EXPENSE, expense, data });
 };
 
-export const deleteExpense = (id) => ({
+export const aDeleteExpense = (id) => ({
   type: DELETE_EXPENSE,
   id,
 });
 
-export const updateExpense = (expenses) => ({
+export const aUpdateExpense = (expenses) => ({
   type: UPDATE_EXPENSE,
   expenses,
 });
