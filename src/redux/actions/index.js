@@ -6,6 +6,7 @@ import {
   GET_CURRENCY,
   UPDATE_EXPENSE,
   USER_LOGIN,
+  ID_TO_EDIT,
 
 } from './namesOfActions';
 
@@ -31,12 +32,12 @@ export const aDeleteExpense = (id) => ({
   id,
 });
 
-export const aUpdateExpense = (expenses) => ({
-  type: UPDATE_EXPENSE,
-  expenses,
-});
-
 export const setIdToEdit = (id) => ({
   type: ID_TO_EDIT,
   id,
+});
+
+export const aUpdateExpense = (expenses) => ({
+  type: UPDATE_EXPENSE,
+  expenses,
 });

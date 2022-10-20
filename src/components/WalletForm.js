@@ -32,7 +32,7 @@ class WalletForm extends Component {
   };
 
   editClick = () => {
-    const { expenses, updateExpenses, idToEdit } = this.props;
+    const { expenses, idToEdit, updateExpenses } = this.props;
     const indexEdit = expenses.map((expense) => expense.id).indexOf(idToEdit);
     expenses[indexEdit] = {
       id: expenses[indexEdit].id,

@@ -97,3 +97,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
+
+// stackoverflow salva vidas
+// https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning
+// erro de renderizar table e header resolve mundando o onclicl pra uma arrow function
